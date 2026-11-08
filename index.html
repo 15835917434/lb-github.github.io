@@ -1,1 +1,1002 @@
-<h1>这是一个页面</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff7fa">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ffe6f0'/%3E%3Cpath d='M32 50l-3.6-3.3C15.6 35.4 8 28.6 8 20.4 8 13.4 13.4 8 20.4 8c4.4 0 8.6 2 11.6 5.2C35 10 39.2 8 43.6 8 50.6 8 56 13.4 56 20.4c0 8.2-7.6 15-20.4 26.3L32 50z' fill='%23ee5f9e'/%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="她的小本子">
+<title>她的小本子 · 兴趣与习惯</title>
+<style>
+:root{
+  --bg:#fff7fa;
+  --ink:#3a2b33;
+  --ink-2:#6b5561;
+  --muted:#8d7684;
+  --faint:#ab97a4;
+  --pink:#ee5f9e;
+  --pink-deep:#d6417e;
+  --pink-soft:#ffe6f0;
+  --lav-soft:#efebff;
+  --peach-soft:#fff0e3;
+  --line:rgba(71,41,58,.09);
+  --shadow:0 10px 30px rgba(214,120,163,.12);
+  --radius:20px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","HarmonyOS Sans SC","MiSans","Microsoft YaHei",sans-serif;
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.5;
+  min-height:100dvh;
+  background:
+    radial-gradient(1100px 540px at 10% -8%,#ffe3ee 0%,rgba(255,227,238,0) 62%),
+    radial-gradient(900px 480px at 98% 0%,#ece6ff 0%,rgba(236,230,255,0) 58%),
+    linear-gradient(180deg,#fff9fb 0%,#fbf6ff 55%,#fff8fb 100%);
+  background-attachment:fixed;
+}
+body.lock{overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+input,textarea,button{font-family:inherit}
+::selection{background:#ffd9e8}
+:focus-visible{outline:2px solid #f78bb8;outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+
+/* header */
+.hero{padding-top:26px}
+.hero-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.kicker{display:flex;align-items:center;gap:8px;margin:0;font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
+.kicker::before{content:"";width:14px;height:2px;border-radius:2px;background:linear-gradient(90deg,#f577ac,#c3aefc)}
+h1{margin:8px 0 6px;font-size:27px;font-weight:800;line-height:1.25;letter-spacing:-.02em;word-break:break-word}
+h1 .heart{color:var(--pink);font-weight:400}
+.sub{margin:0;font-size:12.5px;color:var(--muted)}
+.icon-btn{width:42px;height:42px;flex:none;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(214,120,163,.14);display:grid;place-items:center;color:#8d7684;transition:transform .15s,box-shadow .2s}
+.icon-btn:active{transform:scale(.94)}
+.search{display:flex;align-items:center;gap:9px;margin-top:16px;height:48px;padding:0 9px 0 15px;border-radius:16px;background:rgba(255,255,255,.92);border:1px solid #fff;box-shadow:var(--shadow)}
+.search svg{width:18px;height:18px;flex:none;color:var(--faint)}
+.search input{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;font-size:16px;-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:#bfaab7;font-size:14px}
+.search input::-webkit-search-cancel-button,.search input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+.clear{width:24px;height:24px;flex:none;border-radius:50%;background:#f4eaf0;color:var(--muted);font-size:13px;display:grid;place-items:center;line-height:1}
+
+/* filter chips */
+.chips-bar{position:sticky;top:0;z-index:20;padding:10px 0 8px;background:linear-gradient(180deg,rgba(255,249,251,.95) 55%,rgba(255,249,251,.55));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:3px 18px 4px;scrollbar-width:none;max-width:560px;margin:0 auto}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:9px 14px;border-radius:12px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);color:var(--ink-2);font-size:13px;font-weight:600;white-space:nowrap;box-shadow:0 3px 10px rgba(214,120,163,.07);transition:background .18s,color .18s,box-shadow .18s,transform .12s}
+.chip:active{transform:scale(.96)}
+.chip.active{background:linear-gradient(135deg,#f577ac,#ea4f92);border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(234,79,146,.28)}
+
+/* cards */
+main{padding-top:6px;padding-bottom:calc(102px + env(safe-area-inset-bottom))}
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{display:flex;gap:12px;padding:14px;border-radius:var(--radius);background:rgba(255,255,255,.93);border:1px solid #fff;box-shadow:var(--shadow);cursor:pointer;animation:rise .32s ease both;transition:transform .15s,box-shadow .2s}
+.card:active{transform:scale(.986);box-shadow:0 5px 16px rgba(214,120,163,.1)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card .emoji{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:23px;background:var(--pink-soft)}
+.card .emoji.habit{background:var(--lav-soft)}
+.card .emoji.prefer{background:var(--peach-soft)}
+.card-main{flex:1;min-width:0}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.card h3{flex:1;min-width:0;margin:0;font-size:15.5px;font-weight:700;line-height:1.35;word-break:break-word}
+.star-btn{width:32px;height:32px;flex:none;display:grid;place-items:center;margin:-5px -5px 0 0;border-radius:50%}
+.star-btn svg{width:17px;height:17px;fill:none;stroke:#c8b5c1;stroke-width:1.8;transition:fill .18s,stroke .18s,transform .18s}
+.star-btn.on svg{fill:var(--pink);stroke:var(--pink)}
+.star-btn:active svg{transform:scale(.85)}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:7px}
+.pill{display:inline-block;font-size:11px;font-weight:600;line-height:1.45;padding:3px 8px;border-radius:8px;background:#f6f0f4;color:#8a7380}
+.pill.like{background:#ffe6f0;color:#cf3f7f}
+.pill.dislike{background:#f0edf7;color:#7c6a92}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tags span{font-size:11.5px;color:#a3758c;background:#fff4f8;border:1px solid #ffe3ee;padding:2px 7px;border-radius:7px;line-height:1.4}
+.snippet{margin:8px 0 0;font-size:13px;line-height:1.55;color:#7b6571;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.card-foot{margin-top:9px;font-size:11.5px;color:var(--faint);display:flex;align-items:center;gap:6px}
+
+/* empty */
+.empty{text-align:center;padding:56px 24px 28px}
+.empty .big{font-size:54px;line-height:1;filter:drop-shadow(0 8px 14px rgba(214,120,163,.18))}
+.empty h2{margin:18px 0 7px;font-size:17px;font-weight:700;color:var(--ink)}
+.empty p{margin:0 auto;max-width:270px;font-size:13.5px;line-height:1.75;color:var(--muted)}
+.empty-btn{margin-top:18px;height:44px;padding:0 22px;border-radius:13px;background:linear-gradient(135deg,#f577ac,#ea4f92);color:#fff;font-size:14px;font-weight:700;box-shadow:0 8px 20px rgba(234,79,146,.25)}
+.empty-btn:active{transform:scale(.97)}
+
+/* fab */
+.fab{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 32px),524px);height:54px;border-radius:17px;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#f577ac,#e94b8f);color:#fff;font-size:15px;font-weight:700;letter-spacing:.02em;box-shadow:0 12px 28px rgba(233,75,143,.34);z-index:30;transition:transform .15s,box-shadow .2s}
+.fab:active{transform:translateX(-50%) scale(.975);box-shadow:0 6px 18px rgba(233,75,143,.28)}
+.fab svg{width:16px;height:16px;stroke:#fff;stroke-width:2.2;fill:none}
+
+/* sheet */
+.backdrop{position:fixed;inset:0;z-index:40;background:rgba(50,30,44,.34);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .28s}
+.backdrop.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;z-index:50;width:min(100%,560px);max-height:min(92vh,860px);max-height:min(92dvh,860px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:9px 20px calc(20px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0;background:#fffdfe;box-shadow:0 -18px 50px rgba(80,40,64,.18);transform:translate(-50%,102%);visibility:hidden;transition:transform .34s cubic-bezier(.32,.72,0,1),visibility .34s}
+.sheet.open{transform:translate(-50%,0);visibility:visible;display:block}
+.sheet::-webkit-scrollbar{width:6px}
+.sheet::-webkit-scrollbar-thumb{background:#eedbe5;border-radius:6px}
+.sheet::-webkit-scrollbar-track{background:transparent}
+.grab{width:40px;height:4px;border-radius:4px;background:#eedbe5;margin:0 auto 6px}
+.sheet-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 0 12px;background:linear-gradient(180deg,#fffdfe 72%,rgba(255,253,254,0))}
+.sheet-head h2{margin:0;font-size:18px;font-weight:800;letter-spacing:-.01em}
+.sheet-close{width:34px;height:34px;flex:none;border-radius:50%;background:#f6edf2;color:#967f8c;font-size:15px;display:grid;place-items:center;line-height:1}
+.sheet-close:active{transform:scale(.92)}
+
+/* form */
+.field{margin-top:15px}
+.field>label{display:flex;align-items:baseline;gap:7px;margin-bottom:8px;font-size:12.5px;font-weight:700;color:#5a4551}
+.field .hint{font-size:10.5px;font-weight:400;color:var(--faint)}
+.field input,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:13px;background:#fbf7fa;padding:12px 13px;font-size:16px;line-height:1.5;color:var(--ink);outline:none;transition:border-color .18s,background .18s,box-shadow .18s}
+.field input::placeholder,.field textarea::placeholder{color:#bfaab7;font-size:13px}
+.field input:focus,.field textarea:focus{border-color:#f9a8c9;background:#fff;box-shadow:0 0 0 3px rgba(249,168,201,.18)}
+.field textarea{resize:none;min-height:104px}
+.seg{display:flex;gap:6px;padding:5px;border-radius:14px;background:#f6f0f5}
+.seg button{flex:1;padding:9px 4px;border-radius:10px;font-size:13.5px;font-weight:600;color:#8d7684;transition:background .16s,color .16s,box-shadow .16s}
+.seg button.on{background:#fff;color:var(--pink-deep);box-shadow:0 3px 10px rgba(200,120,160,.16)}
+.cat-grid{display:flex;flex-wrap:wrap;gap:8px}
+.cat{display:flex;align-items:center;gap:5px;padding:8px 12px;border-radius:11px;background:#f7f2f6;color:#7b6571;font-size:13px;font-weight:600;transition:background .16s,color .16s,box-shadow .16s}
+.cat.on{background:#ffe8f1;color:#c23f7b;box-shadow:inset 0 0 0 1px #ffc6dd}
+.add-cat{margin-top:9px;font-size:12px;font-weight:600;color:#a06a86;padding:7px 11px;border-radius:9px;background:#fff6fa;border:1px dashed #f4cbdc}
+.custom-cat{margin-top:10px;padding:11px;border-radius:14px;background:#fdf7fa;border:1px solid #f8e3ec}
+.emoji-pick{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.emoji-pick::-webkit-scrollbar{display:none}
+.emoji-opt{width:34px;height:34px;flex:none;border-radius:9px;background:#fff;display:grid;place-items:center;font-size:18px;border:1px solid transparent}
+.emoji-opt.on{border-color:#f9a8c9;background:#fff0f6}
+.custom-row{display:flex;gap:8px;margin-top:8px}
+.custom-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;background:#fff;padding:9px 11px;font-size:16px;outline:none}
+.custom-row input:focus{border-color:#f9a8c9}
+.custom-row .ok{padding:0 15px;border-radius:10px;background:linear-gradient(135deg,#f577ac,#ea4f92);color:#fff;font-size:13px;font-weight:700}
+.custom-row .cancel{padding:0 12px;font-size:13px;color:var(--muted)}
+.switch-row{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:12px 14px;border-radius:13px;background:#fbf5f9;font-size:13.5px;font-weight:600;color:#5a4551;cursor:pointer}
+.switch-row input{display:none}
+.switch{position:relative;width:45px;height:27px;flex:none;border-radius:20px;background:#e8dce4;transition:background .22s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.16);transition:left .22s}
+.switch-row input:checked + .switch{background:linear-gradient(135deg,#f577ac,#ea4f92)}
+.switch-row input:checked + .switch::after{left:21px}
+.sheet-actions{display:flex;gap:10px;margin-top:22px}
+.btn{height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:700;transition:transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.975)}
+.btn.primary{flex:1;background:linear-gradient(135deg,#f577ac,#e94b8f);color:#fff;box-shadow:0 10px 24px rgba(233,75,143,.3)}
+.btn.danger{width:101px;flex:none;background:#fff;border:1px solid #ffd0df;color:#d1447c}
+.btn.danger:active{border-color:#f9a8c9}
+
+/* settings */
+.nick-field{margin-top:6px}
+.nick-field label{display:block;margin-bottom:8px;font-size:12.5px;font-weight:700;color:#5a4551}
+.nick-field input{width:100%;border:1.5px solid var(--line);border-radius:13px;background:#fbf7fa;padding:12px 13px;font-size:16px;outline:none}
+.nick-field input:focus{border-color:#f9a8c9;background:#fff}
+.nick-field .hint{margin:7px 0 0;font-size:11px;color:var(--faint)}
+.set-row{display:flex;align-items:center;gap:12px;width:100%;margin-top:10px;padding:13px 14px;border-radius:14px;background:#fbf6f9;text-align:left;transition:background .16s,transform .15s}
+.set-row:active{transform:scale(.985);background:#f9f0f5}
+.set-row .ico{width:37px;height:37px;flex:none;border-radius:11px;background:#ffe8f1;display:grid;place-items:center;font-size:17px}
+.set-row .txt{flex:1;min-width:0}
+.set-row .txt b{display:block;font-size:13.5px;font-weight:700}
+.set-row .txt span{display:block;margin-top:2px;font-size:11px;color:var(--muted)}
+.set-row.danger .ico{background:#fff0f3}
+.set-row.danger .txt b{color:#c84276}
+.foot-note{margin:16px 2px 0;font-size:11.5px;line-height:1.7;color:var(--faint)}
+.settings-gap{margin-top:18px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));z-index:80;max-width:82vw;padding:10px 16px;border-radius:12px;background:rgba(58,38,50,.92);color:#fff;font-size:13px;text-align:center;opacity:0;pointer-events:none;transform:translate(-50%,10px);transition:opacity .24s,transform .24s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (min-width:640px){
+  .hero{padding-top:36px}
+  .sheet{bottom:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-row">
+      <div>
+        <p class="kicker" id="todayText">今天</p>
+        <h1 id="appTitle">她的小本子 <span class="heart">♡</span></h1>
+        <p class="sub" id="statText">把她的喜欢与日常，慢慢记下来</p>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="设置与备份">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <circle cx="5" cy="12" r="1.8" fill="#a08a97"/>
+          <circle cx="12" cy="12" r="1.8" fill="#a08a97"/>
+          <circle cx="19" cy="12" r="1.8" fill="#a08a97"/>
+        </svg>
+      </button>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.6"/><path d="M20 20l-3.4-3.4"/>
+      </svg>
+      <input id="searchInput" type="search" inputmode="search" placeholder="搜索兴趣、习惯、标签…" autocomplete="off">
+      <button class="clear" id="clearSearch" aria-label="清空搜索" hidden>✕</button>
+    </div>
+  </div>
+</header>
+
+<div class="chips-bar">
+  <nav class="chips" id="filterChips" aria-label="筛选">
+    <button class="chip active" data-filter="all">全部</button>
+    <button class="chip" data-filter="hobby">🎀 兴趣</button>
+    <button class="chip" data-filter="habit">🌿 习惯</button>
+    <button class="chip" data-filter="prefer">✨ 偏好</button>
+    <button class="chip" data-filter="star">💗 收藏</button>
+  </nav>
+</div>
+
+<main class="wrap">
+  <div class="cards" id="cards"></div>
+  <div class="empty" id="empty" hidden>
+    <div class="big" id="emptyEmoji">🎀</div>
+    <h2 id="emptyTitle">还没有记录哦</h2>
+    <p id="emptyDesc">把她的兴趣爱好、生活习惯和小偏好，一条条记下来吧</p>
+    <button class="empty-btn" id="emptyBtn">写下第一条</button>
+  </div>
+</main>
+
+<button class="fab" id="fab">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+  记录一条
+</button>
+
+<div class="backdrop" id="backdrop"></div>
+
+<!-- 编辑面板 -->
+<section class="sheet" id="editor" aria-label="记录编辑">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <h2 id="editorTitle">新建记录</h2>
+    <button class="sheet-close" data-close aria-label="关闭">✕</button>
+  </div>
+  <form id="entryForm" autocomplete="off">
+    <div class="field">
+      <label>类型</label>
+      <div class="seg" id="typeSeg">
+        <button type="button" data-type="hobby" class="on">🎀 兴趣</button>
+        <button type="button" data-type="habit">🌿 习惯</button>
+        <button type="button" data-type="prefer">✨ 偏好</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>标题</label>
+      <input id="fTitle" type="text" maxlength="40" placeholder="比如：喜欢玫瑰味的香水" required>
+    </div>
+
+    <div class="field">
+      <label>分类</label>
+      <div class="cat-grid" id="catGrid"></div>
+      <button type="button" class="add-cat" id="addCatBtn">＋ 自定义分类</button>
+      <div class="custom-cat" id="customCat" hidden>
+        <div class="emoji-pick" id="emojiPick"></div>
+        <div class="custom-row">
+          <input id="newCatName" type="text" maxlength="8" placeholder="分类名称，如：香水">
+          <button type="button" class="ok" id="saveCatBtn">添加</button>
+          <button type="button" class="cancel" id="cancelCatBtn">取消</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>喜欢程度</label>
+      <div class="seg" id="likeSeg">
+        <button type="button" data-like="1">💗 喜欢</button>
+        <button type="button" data-like="0" class="on">🤍 一般</button>
+        <button type="button" data-like="-1">💔 不喜欢</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>标签 <span class="hint">空格或逗号分隔</span></label>
+      <input id="fTags" type="text" maxlength="80" placeholder="例如：香水 生日礼物">
+    </div>
+
+    <div class="field">
+      <label>详细记录</label>
+      <textarea id="fContent" rows="4" maxlength="4000" placeholder="记下细节：品牌、口味、时间、注意事项…"></textarea>
+    </div>
+
+    <label class="switch-row">
+      <span>加入收藏</span>
+      <input type="checkbox" id="fStar">
+      <span class="switch" aria-hidden="true"></span>
+    </label>
+
+    <div class="sheet-actions">
+      <button type="button" class="btn danger" id="deleteBtn" hidden>删除</button>
+      <button type="submit" class="btn primary">保存记录</button>
+    </div>
+  </form>
+</section>
+
+<!-- 设置面板 -->
+<section class="sheet" id="settings" aria-label="设置与备份">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <h2>设置与备份</h2>
+    <button class="sheet-close" data-close aria-label="关闭">✕</button>
+  </div>
+
+  <div class="nick-field">
+    <label for="nickInput">她的称呼</label>
+    <input id="nickInput" type="text" maxlength="8" placeholder="她">
+    <p class="hint">显示在首页标题上，例如「小雨的小本子」</p>
+  </div>
+
+  <div class="settings-gap">
+    <button class="set-row" id="exportBtn">
+      <span class="ico">📤</span>
+      <span class="txt"><b>导出备份</b><span>保存为 JSON 文件，换设备也不怕</span></span>
+    </button>
+    <button class="set-row" id="importBtn">
+      <span class="ico">📥</span>
+      <span class="txt"><b>导入备份</b><span>从 JSON 文件合并记录</span></span>
+    </button>
+    <button class="set-row danger" id="clearBtn">
+      <span class="ico">🗑️</span>
+      <span class="txt"><b>清空全部记录</b><span>操作前建议先导出备份</span></span>
+    </button>
+  </div>
+
+  <p class="foot-note">所有内容只保存在这台设备的浏览器里，不会上传到服务器。清理浏览器数据或更换设备前，记得先导出备份。</p>
+</section>
+
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+'use strict';
+
+/* ---------- 常量 ---------- */
+var STORE = {
+  entries: 'herbook.entries.v1',
+  cats: 'herbook.cats.v1',
+  name: 'herbook.nick.v1'
+};
+var TYPES = ['hobby', 'habit', 'prefer'];
+var TYPE_LABEL = { hobby: '兴趣', habit: '习惯', prefer: '偏好' };
+var DEFAULT_CATS = {
+  hobby: [
+    ['🎀','穿搭'], ['💄','美妆'], ['🍰','美食'], ['✈️','旅行'], ['🎬','追剧'],
+    ['🎵','音乐'], ['📚','阅读'], ['🧶','手工'], ['🐱','萌宠'], ['🏸','运动']
+  ],
+  habit: [
+    ['🌙','作息'], ['🧴','护肤'], ['🥗','饮食'], ['💪','健身'], ['🧺','收纳'],
+    ['💰','理财'], ['📖','学习'], ['☕','咖啡'], ['🌿','养生'], ['🧹','家务']
+  ],
+  prefer: [
+    ['🎁','礼物'], ['🍽️','忌口'], ['🎨','颜色'], ['🌸','花香'], ['🧸','小物'],
+    ['💐','约会'], ['📷','拍照'], ['🎂','生日']
+  ]
+};
+var EMOJIS = ['✨','🌸','🎀','💄','🍰','☕','🎵','📚','🧸','🐱','🎬','✈️','💐','🎨','🌙','🍽️','🛍️','💍'];
+
+/* ---------- 状态 ---------- */
+var entries = [];
+var customCats = { hobby: [], habit: [], prefer: [] };
+var nickname = '';
+var filter = 'all';
+var query = '';
+var editing = null;
+var editingId = null;
+var draft = { type: 'hobby', cat: null, like: 0 };
+var emojiChoice = '✨';
+var toastTimer = null;
+
+/* ---------- 工具 ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(value){
+  return String(value).replace(/[&<>"']/g, function(c){
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function uid(){
+  try{
+    if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  }catch(e){}
+  return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+}
+function getJSON(key, fallback){
+  try{
+    var raw = localStorage.getItem(key);
+    if(!raw) return fallback;
+    var val = JSON.parse(raw);
+    return val === null || val === undefined ? fallback : val;
+  }catch(e){ return fallback; }
+}
+function setJSON(key, val){
+  try{
+    localStorage.setItem(key, JSON.stringify(val));
+    return true;
+  }catch(e){
+    toast('保存失败，浏览器存储空间可能已满');
+    return false;
+  }
+}
+function toast(msg){
+  var el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 1900);
+}
+function pad2(n){ return n < 10 ? '0' + n : String(n); }
+
+function timeLabel(ts){
+  var d = new Date(ts);
+  if(isNaN(d.getTime())) return '';
+  var now = new Date();
+  var startOf = function(dt){ var x = new Date(dt); x.setHours(0,0,0,0); return x.getTime(); };
+  var dayMs = 86400000;
+  var diff = startOf(now) - startOf(d);
+  var hm = pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+  if(diff === 0) return '今天 ' + hm;
+  if(diff === dayMs) return '昨天 ' + hm;
+  if(diff > 0 && diff < 7 * dayMs) return (diff / dayMs) + ' 天前';
+  if(d.getFullYear() === now.getFullYear()) return (d.getMonth() + 1) + '月' + d.getDate() + '日';
+  return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日';
+}
+function todayLabel(){
+  var d = new Date();
+  var week = '日一二三四五六'.charAt(d.getDay());
+  return (d.getMonth() + 1) + '月' + d.getDate() + '日 · 星期' + week;
+}
+function parseTags(value){
+  var seen = {};
+  return String(value || '')
+    .split(/[\s,，、;；]+/)
+    .map(function(t){ return t.replace(/^#+/, '').trim(); })
+    .filter(function(t){
+      if(!t || seen[t]) return false;
+      seen[t] = true;
+      return true;
+    })
+    .slice(0, 8)
+    .map(function(t){ return t.slice(0, 16); });
+}
+
+/* ---------- 数据清洗 ---------- */
+function sanitizeEntry(raw){
+  if(!raw || typeof raw !== 'object') return null;
+  var title = String(raw.title || '').trim();
+  if(!title) return null;
+  var type = TYPES.indexOf(raw.type) > -1 ? raw.type : 'hobby';
+  var like = Number(raw.like);
+  if([1, 0, -1].indexOf(like) === -1) like = 0;
+  var tags = Array.isArray(raw.tags) ? raw.tags.map(function(t){
+    return String(t).replace(/^#+/, '').slice(0, 16);
+  }).filter(Boolean).slice(0, 8) : [];
+  var created = Number(raw.createdAt) || Date.now();
+  return {
+    id: raw.id ? String(raw.id) : uid(),
+    type: type,
+    category: String(raw.category || '其他').slice(0, 10),
+    emoji: String(raw.emoji || '✨').slice(0, 8),
+    title: title.slice(0, 40),
+    content: String(raw.content || '').slice(0, 4000),
+    tags: tags,
+    like: like,
+    star: !!raw.star,
+    createdAt: created,
+    updatedAt: Number(raw.updatedAt) || created
+  };
+}
+function initData(){
+  var loaded = getJSON(STORE.entries, []);
+  entries = (Array.isArray(loaded) ? loaded : []).map(sanitizeEntry).filter(Boolean);
+  var rawCats = getJSON(STORE.cats, {});
+  TYPES.forEach(function(t){
+    var list = rawCats && Array.isArray(rawCats[t]) ? rawCats[t] : [];
+    customCats[t] = list.map(function(c){
+      return { emoji: String((c && c.emoji) || '✨').slice(0, 8), name: String((c && c.name) || '').trim().slice(0, 8) };
+    }).filter(function(c){ return c.name; });
+  });
+  nickname = String(getJSON(STORE.name, '') || '').slice(0, 8);
+}
+function saveEntries(){ setJSON(STORE.entries, entries); }
+function saveCats(){ setJSON(STORE.cats, customCats); }
+
+/* ---------- 标题与统计 ---------- */
+function updateTitle(){
+  var who = (nickname || '').trim() || '她';
+  $('appTitle').innerHTML = esc(who) + '的小本子 <span class="heart">♡</span>';
+}
+function allCats(type){
+  var base = DEFAULT_CATS[type].map(function(pair){ return { emoji: pair[0], name: pair[1] }; });
+  var custom = (customCats[type] || []).filter(function(c){
+    return !base.some(function(b){ return b.name === c.name; });
+  });
+  return base.concat(custom);
+}
+
+/* ---------- 列表渲染 ---------- */
+var HEART_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
+function cardHTML(e){
+  var like = '';
+  if(e.like === 1) like = '<span class="pill like">💗 喜欢</span>';
+  else if(e.like === -1) like = '<span class="pill dislike">💔 不喜欢</span>';
+  var tags = e.tags.length
+    ? '<div class="tags">' + e.tags.map(function(t){ return '<span>#' + esc(t) + '</span>'; }).join('') + '</div>'
+    : '';
+  var snippet = e.content
+    ? '<p class="snippet">' + esc(e.content) + '</p>'
+    : '';
+  var kind = TYPES.indexOf(e.type) > -1 ? e.type : 'hobby';
+  return '<article class="card" data-id="' + esc(e.id) + '" tabindex="0" role="button" aria-label="编辑 ' + esc(e.title) + '">' +
+      '<div class="emoji ' + kind + '" aria-hidden="true">' + esc(e.emoji) + '</div>' +
+      '<div class="card-main">' +
+        '<div class="card-top">' +
+          '<h3>' + esc(e.title) + '</h3>' +
+          '<button class="star-btn' + (e.star ? ' on' : '') + '" data-star="' + esc(e.id) + '" aria-label="' + (e.star ? '取消收藏' : '收藏') + '" aria-pressed="' + (e.star ? 'true' : 'false') + '">' + HEART_SVG + '</button>' +
+        '</div>' +
+        '<div class="meta"><span class="pill">' + esc(e.category) + '</span>' + like + '</div>' +
+        tags +
+        snippet +
+        '<div class="card-foot">' + timeLabel(e.createdAt) + '</div>' +
+      '</div>' +
+    '</article>';
+}
+
+function matches(e){
+  if(filter === 'star' && !e.star) return false;
+  if(TYPES.indexOf(filter) > -1 && e.type !== filter) return false;
+  if(!query) return true;
+  var q = query.toLowerCase();
+  var hay = [e.title, e.content, e.category].concat(e.tags).join(' ').toLowerCase();
+  return hay.indexOf(q) > -1;
+}
+
+function matchesFilterOnly(e){
+  if(filter === 'star' && !e.star) return false;
+  if(TYPES.indexOf(filter) > -1 && e.type !== filter) return false;
+  return true;
+}
+
+function setFilter(next){
+  filter = next;
+  var chips = document.querySelectorAll('#filterChips .chip');
+  for(var i = 0; i < chips.length; i++){
+    chips[i].classList.toggle('active', chips[i].getAttribute('data-filter') === filter);
+  }
+}
+
+function render(){
+  var filtered = entries.filter(matches).sort(function(a, b){ return b.createdAt - a.createdAt; });
+  var cards = $('cards');
+  cards.innerHTML = filtered.map(cardHTML).join('');
+  cards.hidden = filtered.length === 0;
+
+  var empty = $('empty');
+  if(!filtered.length){
+    empty.hidden = false;
+    var emoji = '🎀', title = '还没有记录哦', desc = '把她的兴趣爱好、生活习惯和小偏好，一条条记下来吧', btn = '写下第一条';
+    if(entries.length && query){
+      emoji = '🔍';
+      title = '没有找到「' + query + '」';
+      desc = '换个关键词，或者清空搜索再试试';
+      btn = '清空搜索';
+    }else if(entries.length){
+      emoji = '🌷';
+      title = '这里还空空的';
+      desc = '切换到「全部」，或者添加一条新的记录吧';
+      btn = '添加记录';
+    }
+    $('emptyEmoji').textContent = emoji;
+    $('emptyTitle').textContent = title;
+    $('emptyDesc').textContent = desc;
+    $('emptyBtn').textContent = btn;
+  }else{
+    empty.hidden = true;
+  }
+
+  var catCount = {};
+  entries.forEach(function(e){ catCount[e.category] = true; });
+  $('statText').textContent = entries.length
+    ? entries.length + ' 条记录 · ' + Object.keys(catCount).length + ' 个分类'
+    : '把她的喜欢与日常，慢慢记下来';
+}
+
+/* ---------- 收藏 ---------- */
+function toggleStar(id){
+  var item = null;
+  for(var i = 0; i < entries.length; i++){
+    if(entries[i].id === id){ item = entries[i]; break; }
+  }
+  if(!item) return;
+  item.star = !item.star;
+  item.updatedAt = Date.now();
+  saveEntries();
+  render();
+  toast(item.star ? '已加入收藏 ♡' : '已取消收藏');
+}
+
+/* ---------- 面板 ---------- */
+function openSheet(el){
+  closeSheets();
+  el.classList.add('open');
+  $('backdrop').classList.add('show');
+  document.body.classList.add('lock');
+}
+function closeSheets(){
+  var open = document.querySelectorAll('.sheet.open');
+  for(var i = 0; i < open.length; i++) open[i].classList.remove('open');
+  $('backdrop').classList.remove('show');
+  document.body.classList.remove('lock');
+}
+
+/* ---------- 编辑器 ---------- */
+function renderEmojiPick(){
+  $('emojiPick').innerHTML = EMOJIS.map(function(e){
+    return '<button type="button" class="emoji-opt' + (e === emojiChoice ? ' on' : '') + '" data-emoji="' + e + '">' + e + '</button>';
+  }).join('');
+}
+
+function renderCats(){
+  var cats = allCats(draft.type);
+  if(draft.cat && !cats.some(function(c){ return c.name === draft.cat.name; })){
+    cats = cats.concat([draft.cat]);
+  }
+  $('catGrid').innerHTML = cats.map(function(c){
+    var on = draft.cat && draft.cat.name === c.name;
+    return '<button type="button" class="cat' + (on ? ' on' : '') + '" data-name="' + esc(c.name) + '" data-emoji="' + esc(c.emoji) + '">' +
+      '<span aria-hidden="true">' + esc(c.emoji) + '</span><span>' + esc(c.name) + '</span></button>';
+  }).join('');
+}
+
+function syncTypeSeg(){
+  var btns = document.querySelectorAll('#typeSeg button');
+  for(var i = 0; i < btns.length; i++){
+    btns[i].classList.toggle('on', btns[i].getAttribute('data-type') === draft.type);
+  }
+}
+function syncLikeSeg(){
+  var btns = document.querySelectorAll('#likeSeg button');
+  for(var i = 0; i < btns.length; i++){
+    btns[i].classList.toggle('on', Number(btns[i].getAttribute('data-like')) === draft.like);
+  }
+}
+
+function openEditor(entry){
+  editing = entry || null;
+  editingId = entry ? entry.id : null;
+
+  var form = $('entryForm');
+  form.reset();
+
+  draft.type = entry && TYPES.indexOf(entry.type) > -1
+    ? entry.type
+    : (TYPES.indexOf(filter) > -1 ? filter : 'hobby');
+  draft.like = entry ? entry.like : 0;
+  draft.cat = entry
+    ? { emoji: entry.emoji, name: entry.category }
+    : (allCats(draft.type)[0] || null);
+
+  $('fTitle').value = entry ? entry.title : '';
+  $('fTags').value = entry ? entry.tags.join(' ') : '';
+  $('fContent').value = entry ? entry.content : '';
+  $('fStar').checked = !!(entry && entry.star);
+
+  $('editorTitle').textContent = entry ? '编辑记录' : '新建记录';
+  $('deleteBtn').hidden = !entry;
+  $('customCat').hidden = true;
+  $('newCatName').value = '';
+  emojiChoice = '✨';
+  renderEmojiPick();
+
+  syncTypeSeg();
+  syncLikeSeg();
+  renderCats();
+
+  openSheet($('editor'));
+  $('editor').scrollTop = 0;
+}
+
+function addCustomCat(){
+  var name = $('newCatName').value.trim().slice(0, 8);
+  if(!name){ toast('先写一个分类名称吧'); $('newCatName').focus(); return; }
+  var exists = allCats(draft.type).some(function(c){ return c.name === name; });
+  if(exists){ toast('这个分类已经有啦'); return; }
+  var cat = { emoji: emojiChoice || '✨', name: name };
+  customCats[draft.type].push(cat);
+  saveCats();
+  draft.cat = cat;
+  $('customCat').hidden = true;
+  $('newCatName').value = '';
+  renderCats();
+  toast('已添加分类「' + name + '」');
+}
+
+function saveEntry(){
+  var title = $('fTitle').value.trim();
+  if(!title){
+    $('fTitle').focus();
+    toast('先给这条记录起个标题吧');
+    return;
+  }
+  if(!draft.cat){
+    toast('选一个分类吧');
+    return;
+  }
+  var now = Date.now();
+  var isNew = !editing;
+  var data = {
+    id: editingId || uid(),
+    type: draft.type,
+    category: draft.cat.name,
+    emoji: draft.cat.emoji,
+    title: title.slice(0, 40),
+    content: $('fContent').value.trim(),
+    tags: parseTags($('fTags').value),
+    like: draft.like,
+    star: $('fStar').checked,
+    createdAt: editing ? editing.createdAt : now,
+    updatedAt: now
+  };
+
+  if(editing){
+    var replaced = false;
+    for(var i = 0; i < entries.length; i++){
+      if(entries[i].id === editing.id){ entries[i] = data; replaced = true; break; }
+    }
+    if(!replaced) entries.push(data);
+  }else{
+    entries.push(data);
+  }
+
+  saveEntries();
+  if(isNew && !matchesFilterOnly(data)) setFilter('all');
+  closeSheets();
+  render();
+  toast(isNew ? '记录好啦 ♡' : '记录已更新 ♡');
+}
+
+/* ---------- 备份 ---------- */
+function exportData(){
+  if(!entries.length){ toast('还没有记录可以导出'); return; }
+  var payload = {
+    app: 'herbook',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    nickname: nickname,
+    customCats: customCats,
+    entries: entries
+  };
+  var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var d = new Date();
+  a.href = url;
+  a.download = '她的兴趣笔记-' + d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + '.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  toast('备份文件已导出');
+}
+
+function importData(file){
+  var reader = new FileReader();
+  reader.onload = function(){
+    var data;
+    try{ data = JSON.parse(String(reader.result)); }
+    catch(e){ toast('文件格式不对，导入失败'); return; }
+
+    var list = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
+    if(!list || !list.length){ toast('备份里没有找到记录'); return; }
+
+    var valid = list.map(sanitizeEntry).filter(Boolean).map(function(e){
+      e.id = uid();
+      return e;
+    });
+    if(!valid.length){ toast('备份里没有可导入的记录'); return; }
+    if(!confirm('找到 ' + valid.length + ' 条记录，合并到现有记录中？')) return;
+
+    entries = valid.concat(entries);
+    saveEntries();
+
+    var cats = data && data.customCats;
+    if(cats){
+      TYPES.forEach(function(t){
+        var arr = Array.isArray(cats[t]) ? cats[t] : [];
+        arr.forEach(function(c){
+          if(!c || !c.name) return;
+          var name = String(c.name).trim().slice(0, 8);
+          if(!name) return;
+          var dup = allCats(t).some(function(x){ return x.name === name; });
+          if(dup) return;
+          customCats[t].push({ emoji: String(c.emoji || '✨').slice(0, 8), name: name });
+        });
+      });
+      saveCats();
+    }
+
+    render();
+    closeSheets();
+    toast('已导入 ' + valid.length + ' 条记录 ♡');
+  };
+  reader.onerror = function(){ toast('文件读取失败'); };
+  reader.readAsText(file);
+}
+
+/* ---------- 事件绑定 ---------- */
+function bindEvents(){
+  $('todayText').textContent = todayLabel();
+
+  $('settingsBtn').addEventListener('click', function(){
+    $('nickInput').value = nickname || '';
+    openSheet($('settings'));
+  });
+
+  $('backdrop').addEventListener('click', closeSheets);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeSheets();
+  });
+  var closers = document.querySelectorAll('[data-close]');
+  for(var i = 0; i < closers.length; i++) closers[i].addEventListener('click', closeSheets);
+
+  $('fab').addEventListener('click', function(){ openEditor(null); });
+
+  $('filterChips').addEventListener('click', function(e){
+    var chip = e.target.closest('.chip');
+    if(!chip) return;
+    setFilter(chip.getAttribute('data-filter'));
+    render();
+  });
+
+  $('searchInput').addEventListener('input', function(){
+    query = this.value.trim();
+    $('clearSearch').hidden = !query;
+    render();
+  });
+  $('clearSearch').addEventListener('click', function(){
+    $('searchInput').value = '';
+    query = '';
+    this.hidden = true;
+    $('searchInput').focus();
+    render();
+  });
+
+  $('emptyBtn').addEventListener('click', function(){
+    if(query){
+      $('searchInput').value = '';
+      query = '';
+      $('clearSearch').hidden = true;
+      render();
+    }else{
+      openEditor(null);
+    }
+  });
+
+  $('cards').addEventListener('click', function(e){
+    var star = e.target.closest('[data-star]');
+    if(star){
+      toggleStar(star.getAttribute('data-star'));
+      return;
+    }
+    var card = e.target.closest('.card');
+    if(!card) return;
+    var id = card.getAttribute('data-id');
+    for(var i = 0; i < entries.length; i++){
+      if(entries[i].id === id){ openEditor(entries[i]); return; }
+    }
+  });
+  $('cards').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var card = e.target.closest('.card');
+    if(!card) return;
+    e.preventDefault();
+    var id = card.getAttribute('data-id');
+    for(var i = 0; i < entries.length; i++){
+      if(entries[i].id === id){ openEditor(entries[i]); return; }
+    }
+  });
+
+  // 类型切换
+  $('typeSeg').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    var type = btn.getAttribute('data-type');
+    if(!type || type === draft.type) return;
+    draft.type = type;
+    draft.cat = allCats(type)[0] || null;
+    syncTypeSeg();
+    renderCats();
+  });
+
+  // 分类选择
+  $('catGrid').addEventListener('click', function(e){
+    var btn = e.target.closest('.cat');
+    if(!btn) return;
+    draft.cat = { emoji: btn.getAttribute('data-emoji'), name: btn.getAttribute('data-name') };
+    renderCats();
+  });
+
+  // 自定义分类
+  $('addCatBtn').addEventListener('click', function(){
+    $('customCat').hidden = false;
+    $('newCatName').value = '';
+    emojiChoice = '✨';
+    renderEmojiPick();
+    $('newCatName').focus();
+  });
+  $('cancelCatBtn').addEventListener('click', function(){
+    $('customCat').hidden = true;
+  });
+  $('saveCatBtn').addEventListener('click', addCustomCat);
+  $('newCatName').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      addCustomCat();
+    }
+  });
+  $('emojiPick').addEventListener('click', function(e){
+    var btn = e.target.closest('.emoji-opt');
+    if(!btn) return;
+    emojiChoice = btn.getAttribute('data-emoji');
+    renderEmojiPick();
+  });
+
+  // 喜欢程度
+  $('likeSeg').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    draft.like = Number(btn.getAttribute('data-like'));
+    syncLikeSeg();
+  });
+
+  $('entryForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    saveEntry();
+  });
+
+  $('deleteBtn').addEventListener('click', function(){
+    if(!editingId) return;
+    if(!confirm('确定删除这条记录吗？')) return;
+    entries = entries.filter(function(e){ return e.id !== editingId; });
+    saveEntries();
+    closeSheets();
+    render();
+    toast('已删除');
+  });
+
+  // 设置
+  $('nickInput').addEventListener('input', function(){
+    nickname = this.value.trim().slice(0, 8);
+    setJSON(STORE.name, nickname);
+    updateTitle();
+  });
+
+  $('exportBtn').addEventListener('click', exportData);
+  $('importBtn').addEventListener('click', function(){ $('importFile').click(); });
+  $('importFile').addEventListener('change', function(){
+    var file = this.files && this.files[0];
+    this.value = '';
+    if(file) importData(file);
+  });
+
+  $('clearBtn').addEventListener('click', function(){
+    if(!entries.length){ toast('还没有记录可以清空'); return; }
+    if(!confirm('确定清空全部 ' + entries.length + ' 条记录吗？建议先导出备份。')) return;
+    entries = [];
+    saveEntries();
+    render();
+    toast('已清空全部记录');
+  });
+}
+
+/* ---------- 启动 ---------- */
+initData();
+bindEvents();
+updateTitle();
+render();
+</script>
+</body>
+</html>
