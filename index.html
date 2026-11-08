@@ -358,7 +358,8 @@ main{padding-top:6px;padding-bottom:calc(102px + env(safe-area-inset-bottom))}
 var STORE = {
   entries: 'herbook.entries.v1',
   cats: 'herbook.cats.v1',
-  name: 'herbook.nick.v1'
+  name: 'herbook.nick.v1',
+  seeded: 'herbook.seeded.v1'
 };
 var TYPES = ['hobby', 'habit', 'prefer'];
 var TYPE_LABEL = { hobby: '兴趣', habit: '习惯', prefer: '偏好' };
@@ -369,11 +370,12 @@ var DEFAULT_CATS = {
   ],
   habit: [
     ['🌙','作息'], ['🧴','护肤'], ['🥗','饮食'], ['💪','健身'], ['🧺','收纳'],
-    ['💰','理财'], ['📖','学习'], ['☕','咖啡'], ['🌿','养生'], ['🧹','家务']
+    ['💰','理财'], ['📖','学习'], ['☕','咖啡'], ['🌿','养生'], ['🧹','家务'],
+    ['🚗','出行'], ['🏠','生活']
   ],
   prefer: [
     ['🎁','礼物'], ['🍽️','忌口'], ['🎨','颜色'], ['🌸','花香'], ['🧸','小物'],
-    ['💐','约会'], ['📷','拍照'], ['🎂','生日']
+    ['💐','约会'], ['📷','拍照'], ['🎂','生日'], ['🎬','娱乐'], ['🧠','性格']
   ]
 };
 var EMOJIS = ['✨','🌸','🎀','💄','🍰','☕','🎵','📚','🧸','🐱','🎬','✈️','💐','🎨','🌙','🍽️','🛍️','💍'];
@@ -502,6 +504,89 @@ function initData(){
 }
 function saveEntries(){ setJSON(STORE.entries, entries); }
 function saveCats(){ setJSON(STORE.cats, customCats); }
+
+/* ---------- 初始记录 ---------- */
+var SEED_ENTRIES = [
+  {
+    type: 'prefer',
+    category: '娱乐',
+    emoji: '🎬',
+    title: '不爱看直播和短剧',
+    content: '不爱看直播和短剧，平时不会主动看。',
+    tags: ['直播', '短剧', '娱乐'],
+    like: -1
+  },
+  {
+    type: 'habit',
+    category: '饮食',
+    emoji: '🥗',
+    title: '饭量小，口味清淡',
+    content: '饭量小，不吃太辣，不喝奶茶和饮料；常温水喝得少，记得提醒她补水。',
+    tags: ['饮食', '饭量小', '不吃辣', '不喝奶茶', '喝水少'],
+    like: 0
+  },
+  {
+    type: 'habit',
+    category: '出行',
+    emoji: '🚗',
+    title: '容易晕车',
+    content: '车速一快一慢时容易晕车，坐车看手机也会晕。',
+    tags: ['晕车', '出行', '看手机'],
+    like: 0
+  },
+  {
+    type: 'prefer',
+    category: '性格',
+    emoji: '🧠',
+    title: '不喜欢吹牛',
+    content: '不喜欢爱吹牛、说大话的人。',
+    tags: ['性格', '真诚'],
+    like: -1
+  },
+  {
+    type: 'habit',
+    category: '生活',
+    emoji: '🏠',
+    title: '需要独处空间',
+    content: '希望拥有独处空间；休息日不想出门时，会在家宅一天。',
+    tags: ['独处', '宅家', '休息'],
+    like: 0
+  },
+  {
+    type: 'hobby',
+    category: '阅读',
+    emoji: '📚',
+    title: '偏文艺的日常',
+    content: '生活偏文艺，喜欢看书、看韩剧，也喜欢有深刻意义的电影。',
+    tags: ['阅读', '韩剧', '电影', '文艺'],
+    like: 1
+  }
+];
+
+function seedIfNeeded(){
+  if(getJSON(STORE.seeded, false)) return;
+  var now = Date.now();
+  var existing = entries.map(function(e){ return e.type + '|' + e.title; });
+  SEED_ENTRIES.forEach(function(item, i){
+    var key = item.type + '|' + item.title;
+    if(existing.indexOf(key) > -1) return;
+    var created = now - i * 2 * 60 * 1000;
+    var seed = sanitizeEntry({
+      type: item.type,
+      category: item.category,
+      emoji: item.emoji,
+      title: item.title,
+      content: item.content,
+      tags: item.tags,
+      like: item.like,
+      createdAt: created,
+      updatedAt: created
+    });
+    if(seed) entries.push(seed);
+  });
+  saveEntries();
+  setJSON(STORE.seeded, true);
+}
 
 /* ---------- 标题与统计 ---------- */
 function updateTitle(){
@@ -994,6 +1079,7 @@ function bindEvents(){
 
 /* ---------- 启动 ---------- */
 initData();
+seedIfNeeded();
 bindEvents();
 updateTitle();
 render();
